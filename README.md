@@ -52,39 +52,6 @@ The chatbot ensures **off-topic queries are not answered**, fulfilling the “co
 
 4. Response example: { "answer": "Cement is a binding material used in construction..." }
 
-⚙️ Local Development Setup
-
-1. Clone repository :
-
-git clone https://github.com/Kaushik-hub18/construction-chatbot.git
-cd construction-chatbot
-
-2. Backend (FastAPI) :
-
-cd backend
-python -m venv .venv
-# Activate venv:
-# Windows
-.venv\Scripts\activate
-# Linux / Mac
-source .venv/bin/activate
-
-pip install -r requirements.txt
-uvicorn main:app --reload --host 127.0.0.1 --port 8000
-
-
-Test:
-
-curl -X POST "http://127.0.0.1:8000/chat" \
-     -H "Content-Type: application/json" \
-     -d '{"query":"What is curing?"}'
-
-3. Frontend (React) :
-
-cd frontend/chat-ui
-npm install
-npm start
-# Open http://localhost:3000
 
 🧩 Example Usage
 
