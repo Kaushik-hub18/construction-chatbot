@@ -26,7 +26,14 @@ function App() {
     setTyping(true);
 
     try {
-      const res = await axios.post("http://127.0.0.1:8000/chat", { query: text }, { timeout: 60000 });
+      // ✅ Updated backend URL (Render deployment)
+      const res = await axios.post(
+  "https://construction-chatbot-fh4v.onrender.com/chat",
+  { query: text },
+  { timeout: 60000 }
+);
+
+
       const botText = (res.data && res.data.answer) ? res.data.answer : "⚠️ No answer returned";
       setMessages(prev => [...prev, { sender: "bot", text: botText }]);
     } catch (err) {
@@ -68,10 +75,11 @@ function App() {
         <header style={{
           padding: "14px 20px",
           borderBottom: "1px solid #e6e6e6",
-          background: "#ffffff"
+          background: "#004d99", // ✅ Blue theme header
+          color: "#fff"
         }}>
-          <h2 style={{ margin: 0, color: "#0f172a" }}>🏗️ Construction Assistant</h2>
-          <div style={{ fontSize: "12px", color: "#6b7280" }}>Construction-only answers • Example: “What is curing?”</div>
+          <h2 style={{ margin: 0 }}>🏗️ Construction Assistant</h2>
+          <div style={{ fontSize: "12px", opacity: 0.85 }}>Construction-only answers • Example: “What is curing?”</div>
         </header>
 
         <main style={{ flex: 1, overflowY: "auto", padding: "18px" }}>
@@ -85,7 +93,7 @@ function App() {
                 maxWidth: "78%",
                 padding: "10px 14px",
                 borderRadius: "12px",
-                background: msg.sender === "user" ? "#0ea5e9" : "#f3f4f6",
+                background: msg.sender === "user" ? "#004d99" : "#f3f4f6",
                 color: msg.sender === "user" ? "#fff" : "#0f172a",
                 boxShadow: "0 1px 0 rgba(0,0,0,0.03)",
                 lineHeight: "1.4",
@@ -145,7 +153,7 @@ function App() {
               padding: "10px 14px",
               borderRadius: "10px",
               border: "none",
-              background: "#0ea5e9",
+              background: "#004d99", // ✅ Blue theme button
               color: "#fff",
               fontWeight: 600,
               cursor: "pointer"
