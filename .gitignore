@@ -1,0 +1,28 @@
+# ---- Node / React ----
+frontend/**/node_modules/
+frontend/**/build/
+frontend/**/.next/
+frontend/**/.vercel/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+
+# ---- Python / FastAPI ----
+backend/**/__pycache__/
+backend/**/.pytest_cache/
+backend/**/.venv/
+backend/**/venv/
+*.pyc
+
+# ---- Env / Secrets ----
+.env
+*.env
+.env.local
+.env.*.local
+
+# ---- OS / Editor ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
