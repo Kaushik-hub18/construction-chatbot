@@ -37,6 +37,13 @@ knowledge_base = {
     "thanks": "You're welcome! 😊 Happy to help with construction queries.",
     "bye": "Goodbye 👋! Keep building strong!",
 
+    # --- Creator related ---
+    "who made you": "I was created by Kaushik Nath Yarramsetty 🏗️.",
+    "who created you": "I was created by Kaushik Nath Yarramsetty 🏗️.",
+    "your creator": "My creator is Kaushik Nath Yarramsetty 🏗️.",
+    "developer": "I was developed by Kaushik Nath Yarramsetty 🏗️.",
+    "owner": "My owner is Kaushik Nath Yarramsetty 🏗️.",
+
     # --- Basic terms ---
     "construction": "Construction is the process of building infrastructure such as houses, roads, bridges, and other facilities.",
     "building": "A building is a structure with walls and a roof, created for people to live, work, or use for various purposes.",
@@ -163,6 +170,11 @@ async def chat(request: ChatRequest):
     for g in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "ok", "thanks", "bye"]:
         if g in user_query:
             return {"answer": knowledge_base[g]}
+
+    # --- Custom creator Q&A ---
+    if any(phrase in user_query for phrase in ["who made you", "who created you", "your creator", "developed you", "who is your owner"]):
+        return {"answer": "I was created by Kaushik Nath Yarramsetty 🏗️."}    
+    
 
     # 2. Check exact or synonym matches
     for keyword, variations in synonyms.items():
