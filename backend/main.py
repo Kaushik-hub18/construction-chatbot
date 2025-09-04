@@ -26,6 +26,19 @@ async def root():
 
 # Core knowledge base
 knowledge_base = {
+
+
+     # --- Greetings & small talk ---
+    "hi": "Hello! 👋 How can I help you with construction today?",
+    "hello": "Hi there! Ask me anything about construction materials or processes.",
+    "hey": "Hey! 👷 I'm your construction assistant.",
+    "good morning": "Good morning ☀️! Ready to talk construction?",
+    "good afternoon": "Good afternoon 🌤️! How can I assist you?",
+    "good evening": "Good evening 🌙! Ask me any construction-related query.",
+    "ok": "👍 Okay! Do you want to know something about construction?",
+    "thanks": "You're welcome! 😊 Happy to help with construction queries.",
+    "bye": "Goodbye 👋! Keep building strong!",
+    
     "construction": "Construction is the process of building infrastructure such as houses, roads, bridges, and other facilities.",
     "building": "A building is a structure with walls and a roof, created for people to live, work, or use for various purposes.",
     "civil engineering": "Civil engineering is a professional discipline that deals with the design, construction, and maintenance of physical and natural structures.",
