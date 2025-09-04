@@ -24,11 +24,9 @@ app.add_middleware(
 async def root():
     return {"message": "Construction Chatbot Backend Running ✅"}
 
-# Core knowledge base
+# --- Core knowledge base ---
 knowledge_base = {
-
-
-     # --- Greetings & small talk ---
+    # --- Greetings & small talk ---
     "hi": "Hello! 👋 How can I help you with construction today?",
     "hello": "Hi there! Ask me anything about construction materials or processes.",
     "hey": "Hey! 👷 I'm your construction assistant.",
@@ -38,7 +36,8 @@ knowledge_base = {
     "ok": "👍 Okay! Do you want to know something about construction?",
     "thanks": "You're welcome! 😊 Happy to help with construction queries.",
     "bye": "Goodbye 👋! Keep building strong!",
-    
+
+    # --- Basic terms ---
     "construction": "Construction is the process of building infrastructure such as houses, roads, bridges, and other facilities.",
     "building": "A building is a structure with walls and a roof, created for people to live, work, or use for various purposes.",
     "civil engineering": "Civil engineering is a professional discipline that deals with the design, construction, and maintenance of physical and natural structures.",
@@ -127,10 +126,9 @@ knowledge_base = {
     "bim": "Building Information Modeling (BIM) is a digital representation of building data.",
     "rainwater harvesting": "Rainwater harvesting collects and stores rainwater for reuse.",
     "solar energy": "Solar energy is harnessed using panels for electricity in buildings."
-
 }
 
-# Synonyms and variations
+# --- Synonyms and variations ---
 synonyms = {
     "cement": ["cement", "portland cement", "binding material", "cment"],
     "concrete": ["concrete", "ready mix", "mix design", "concret"],
@@ -156,18 +154,23 @@ synonyms = {
     "retaining wall": ["retaining wall", "support wall", "soil retaining"]
 }
 
-# Chat endpoint
+# --- Chat endpoint ---
 @app.post("/chat")
 async def chat(request: ChatRequest):
     user_query = request.query.lower()
 
-    # Check exact or synonym matches
+    # 1. Check exact greetings & small talk (to avoid "did you mean" for hi/hello etc.)
+    for g in ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "ok", "thanks", "bye"]:
+        if g in user_query:
+            return {"answer": knowledge_base[g]}
+
+    # 2. Check exact or synonym matches
     for keyword, variations in synonyms.items():
         for variation in variations:
             if variation in user_query:
                 return {"answer": knowledge_base[keyword]}
 
-    # If no direct match, suggest the closest known topic
+    # 3. If no direct match, suggest the closest known topic
     all_keywords = list(knowledge_base.keys())
     suggestion = difflib.get_close_matches(user_query, all_keywords, n=1, cutoff=0.5)
     
@@ -176,7 +179,7 @@ async def chat(request: ChatRequest):
             "answer": f"I'm not sure, but did you mean **{suggestion[0]}**? Here's what I know:\n\n{knowledge_base[suggestion[0]]}"
         }
 
-    # Default fallback response
+    # 4. Default fallback response
     return {
         "answer": "I'm sorry, I don't have information on that topic yet. Please ask about construction materials, structural elements, or processes."
     }
